@@ -25,9 +25,8 @@ module.exports = {
   props: ['result'],
   computed: {
     result_link: function() {
-      var url = "<%= $c->openqa_url->path('/tests/overview') %>";
       const searchParams = new URLSearchParams(this.result.linkinfo);
-      return url + "?" + searchParams.toString();
+      return openqa_url + "?" + searchParams.toString();
     },
     result_stopped: function() {
       return this.result.stopped || 0;
