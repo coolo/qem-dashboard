@@ -17,16 +17,7 @@ package Dashboard::Controller::Overview;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 sub blocked ($self) {
-  my $incidents = $self->incidents;
-  my $blocked   = $incidents->blocked;
-
-  $self->respond_to(
-    json => {json => $blocked},
-    any  => sub {
-      $self->render(blocked => $blocked);
-    }
-  );
-
+  $self->respond_to(json => {json => $self->incidents->blocked}, any => sub { $self->render; });
 }
 
 sub index ($self) {
@@ -73,9 +64,6 @@ sub repos ($self) {
     }
   );
 
-}
-
-sub vue ($self) {
 }
 
 1;
