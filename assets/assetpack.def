@@ -29,3 +29,4 @@
 < https://unpkg.com/vue/dist/vue.js
 < https://unpkg.com/axios/dist/axios.js
 < incident-link.vue
+< result-summary.vue
