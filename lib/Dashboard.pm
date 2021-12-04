@@ -62,7 +62,7 @@ sub startup ($self) {
 
   $self->plugin('Dashboard::Plugin::JSON');
   $self->plugin('Dashboard::Plugin::Helpers');
-  $self->plugin(AssetPack => {pipes => [qw(Css JavaScript Fetch Combine)]});
+  $self->plugin(AssetPack => {pipes => [qw(Vuejs Css JavaScript Fetch Combine)]});
 
   # Read "assets/assetpack.def"
   $self->asset->process;
