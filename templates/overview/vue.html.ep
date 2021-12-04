@@ -15,9 +15,7 @@
         <tr is="blocked-incident"
          v-for="incident in incidents"
          v-bind:key="incident.incident.number"
-         v-bind:incident_nr="incident.incident.number"
-         v-bind:incident_url="'/incident/' + incident.incident.number"
-         v-bind:package_name="incident.incident.packages[0]"
+         v-bind:incident="incident.incident"
          v-bind:incident_results="incident.incident_results"
          v-bind:update_results="incident.update_results"
             >
@@ -66,11 +64,34 @@
 </li>
 </script>
 
+<script type="text/x-template" id="incident-link-template">
+  <div>
+    <a v-bind:name="number" />
+    <a class="incident-link" v-bind:href="incident_url">{{number}}:{{package_name}}</a>
+  </div>
+</script>
+
+%= javascript begin
+
+  Vue.component('incident-link', {
+    template: '#incident-link-template',
+    props: ['incident'],
+    computed: {
+     incident_url: function() {
+        return '/incident/' + this.incident.number;
+     },
+     package_name: function() {
+        return this.incident.packages[0];
+    },
+    number: function() { return this.incident.number; }
+  }})
+
+% end
+
 <script type="text/x-template" id="blocked-incident-template">
  <tr>
    <td>
-    <a v-bind:name="incident_nr" />
-    <a class="incident-link" v-bind:href="incident_url">{{incident_nr}}:{{package_name}}</a>
+     <incident-link v-bind:incident="incident"></incident-link>
     </td>
     <td>
       <div v-if="Object.keys(incident_results).length + Object.keys(update_results).length === 0">
@@ -142,7 +163,7 @@ Vue.component('blocked-incident-upd-result', {
 
 Vue.component('blocked-incident', {
   template: '#blocked-incident-template',
-  props: ['incident_nr', 'incident_url', 'package_name', 'incident_results', 'update_results']
+  props: ['incident', 'incident_results', 'update_results']
 })
 
 var app = new Vue({
