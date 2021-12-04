@@ -44,15 +44,12 @@ sub incident ($self) {
 }
 
 sub repos ($self) {
-  my $incidents = $self->incidents;
-  my $repos     = $incidents->repos;
   $self->respond_to(
-    json => {json => {titles => $repos}},
+    json => {json => $self->incidents->repos},
     any  => sub {
-      $self->render(titles => $repos);
+      $self->render;
     }
   );
-
 }
 
 sub vue ($self) {
