@@ -32,3 +32,4 @@
 < result-summary.vue
 < blocked-incident-inc-result.vue
 < blocked-incident-upd-result.vue
+< blocked-incident.vue
