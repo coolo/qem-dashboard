@@ -1,7 +1,13 @@
 % layout 'default', title => 'Blocked by Tests';
+%= asset 'vue.js'
 
-<div class="row">
-  <div class="col-md-12">
+% content_for head_javascript => begin
+ var openqa_url = "<%= $c->openqa_url->path('/tests/overview') %>";
+% end
+
+<div id="app">
+ <div class="row">
+   <div class="col-md-12">
     <table class="table">
       <thead>
         <tr>
@@ -10,41 +16,46 @@
         </tr>
       </thead>
       <tbody>
-      % if (@$blocked) {
-        % for my $row (@$blocked) {
-          % my $inc = $row->{incident};
-          % my $incident_results = $row->{incident_results};
-          % my $update_results = $row->{update_results};
-          <tr>
-            <td>
-              <a name="<%= $inc->{number} %>" />
-              %= link_to_incident $inc
-            </td>
-            <td>
-              <ul class="summary-list">
-                % if (keys %$incident_results || keys %$update_results) {
-                  % for my $group (sort keys %$incident_results) {
-                    % my $result = $incident_results->{$group};
-                    <li><%= summary $result %></li>
-                  % }
-                  % for my $group (sort keys %$update_results) {
-                    % my $result = $update_results->{$group};
-                    % my $title = "Aggregate: $result->{linkinfo}{flavor}-$result->{linkinfo}{version}";
-                    <li data-toggle="tooltip" data-placement="left" title="<%= $title %>"><%= summary $result %></li>
-                  % }
-                % }
-                % else {
-                  No data yet
-                % }
-              </ul>
-            </td>
-          </tr>
-        % }
-      % }
-      % else {
-        <tr><td colspan="2">No blocked incidents!</td></tr>
-      % }
+        <tr is="blocked-incident"
+         v-for="incident in incidents"
+         v-bind:key="incident.incident.number"
+         v-bind:incident="incident.incident"
+         v-bind:incident_results="incident.incident_results"
+         v-bind:update_results="incident.update_results"
+            >
+        </tr>
       </tbody>
     </table>
   </div>
+ </div>
 </div>
+
+%= javascript begin
+
+var app = new Vue({
+  el: '#app',
+  created: function() {
+    this.getBlocked();
+    this.timer = setInterval(this.getBlocked, 10 * 60000);
+  },
+  data: {  
+     incidents: []
+  },
+  methods: {
+    getBlocked: function() {
+      var self = this;
+      axios.get('/blocked').then(
+        function(response) {
+          self.incidents = response.data;
+        }
+      );
+    },
+    cancelAutoUpdate () {
+      clearInterval(this.timer);
+    }
+  },
+  beforeDestroy () {
+    this.cancelAutoUpdate();
+  }
+});
+% end
