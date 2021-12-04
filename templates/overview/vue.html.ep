@@ -26,13 +26,6 @@
  </div>
 </div>
 
-
-<script type="text/x-template" id="blocked-incident-inc-result-template">
-  <li v-bind:data-group-id="group_id" >
-    <result-summary v-bind:result="result"></result-summary>
-  </li>
-</script>
-
 <script type="text/x-template" id="blocked-incident-upd-result-template">
 <li v-bind:group-id="group_id"
     data-toggle="tooltip"
@@ -72,11 +65,6 @@
 </script>
 
 %= javascript begin
-
-Vue.component('blocked-incident-inc-result', {
-  template: '#blocked-incident-inc-result-template',
-  props: ['result', 'group_id'],
-})
 
 Vue.component('blocked-incident-upd-result', {
   template: '#blocked-incident-upd-result-template',
