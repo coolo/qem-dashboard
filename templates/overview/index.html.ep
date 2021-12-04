@@ -1,7 +1,19 @@
 % layout 'default', title => 'Active Incidents';
+%= asset 'vue.js'
 
-<div class="row">
-  <div class="col-md-12">
+% content_for head_javascript => begin
+ var blocked_url = "<%= url_for('blocked') %>";
+ function incident_is_testing(incident) {
+   return incident.rr_number > 0 && incident.approved == 0;
+ }
+ function incident_is_staged(incident) {
+   return !incident.rr_number && incident.approved == 0;
+ }
+% end
+
+<div id="app">
+ <div class="row">
+   <div class="col-md-12">
     <table class="table">
       <thead>
         <tr>
@@ -10,34 +22,55 @@
         </tr>
       </thead>
       <tbody>
-      % if ($results) {
-        % for my $inc (@{$incidents->{testing}}) {
-          <tr>
-            <td><%= link_to_incident($inc) %></td>
+        <tr v-for="incident in testing_incidents" v-bind:blocked_url="blocked_url">
+            <td><incident-link v-bind:incident="incident"></incident-link></td>
             <td>
-              <a href="<%= url_for('blocked')->fragment($inc->{number}) %>">
+              <a v-bind:href="blocked_url + '#' + incident.number">
                 <span class="badge badge-primary">testing</span>
               </a>
             </td>
           </tr>
-        % }
-        % for my $inc (@{$incidents->{staged}}) {
-          <tr>
-            <td><%= link_to_incident($inc) %></td>
+          <tr v-for="incident in staged_incidents">
+            <td><incident-link v-bind:incident="incident"></incident-link></td>
             <td><span class="badge badge-secondary">staged</span></td>
           </tr>
-        % }
-        % for my $inc (@{$incidents->{approved}}) {
-          <tr>
-            <td><%= link_to_incident($inc) %></td>
-            <td><span class="badge badge-success">approved</span></td>
-          </tr>
-        % }
-      % }
-      % else {
-        <tr><td colspan="2">No incidents!</td></tr>
-      % }
       </tbody>
     </table>
   </div>
+ </div>
 </div>
+
+%= javascript begin
+
+var app = new Vue({
+  el: '#app',
+  created: function() {
+    this.getBlocked();
+    this.timer = setInterval(this.getBlocked, 10 * 60000);
+  },
+  data: {
+     incidents: []
+  },
+  computed: {
+    testing_incidents: function() { return this.incidents.filter(incident_is_testing) },
+    staged_incidents: function() { return this.incidents.filter(incident_is_staged) },
+    blocked_url: function() { return blocked_url } 
+  },
+  methods: {
+    getBlocked: function() {
+      var self = this;
+      axios.get('/').then(
+        function(response) {
+          self.incidents = response.data;
+        }
+      );
+    },
+    cancelAutoUpdate () {
+      clearInterval(this.timer);
+    }
+  },
+  beforeDestroy () {
+    this.cancelAutoUpdate();
+  }
+});
+% end

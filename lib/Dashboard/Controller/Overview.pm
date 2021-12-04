@@ -21,23 +21,12 @@ sub blocked ($self) {
 }
 
 sub index ($self) {
-  my $incidents = $self->incidents->find;
-
-  my $num = 0;
-  my $cat = {approved => [], testing => [], staged => []};
-  for my $inc (@$incidents) {
-    my $name = $inc->{approved} ? 'approved' : $inc->{rr_number} ? 'testing' : 'staged';
-    push @{$cat->{$name}}, $inc;
-    $num++;
-  }
-
   $self->respond_to(
-    json => {json => {incidents => $cat, results => $num}},
+    json => {json => $self->incidents->find},
     any  => sub {
-      $self->render(incidents => $cat, results => $num);
+      $self->render;
     }
   );
-
 }
 
 sub incident ($self) {
@@ -66,4 +55,7 @@ sub repos ($self) {
 
 }
 
+sub vue ($self) {
+
+}
 1;
