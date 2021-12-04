@@ -1,7 +1,13 @@
 % layout 'default', title => 'Test Repos';
+%= asset 'vue.js'
 
-<div class="row">
-  <div class="col-md-12">
+% content_for head_javascript => begin
+ var openqa_url = "<%= $c->openqa_url->path('/tests/overview') %>";
+% end
+
+<div id="app">
+ <div class="row">
+   <div class="col-md-12">
     <table class="table">
       <thead>
         <tr>
@@ -10,64 +16,46 @@
         </tr>
       </thead>
       <tbody>
-      % if (keys %$titles) {
-        % my $dialogs = 0;
-        % for my $title (sort keys %$titles) {
-          <tr>
-
-            % $dialogs += 1;
-            <div tabindex="-1" role="dialog" class="modal fade" id="update-incidents-<%= $dialogs %>"
-              aria-labelledby="modal-title-<%= $dialogs %>" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title-<%= $dialogs %>">Incidents for <%= $title %></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <ul>
-                      % for my $inc (@{$titles->{$title}{incidents}}) {
-                        <li><%= link_to_smelt($inc) %></li>
-                      % }
-                    </ul>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <td>
-              <div><%= $title %></div>
-              <div class="text-left">
-              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                data-target="#update-incidents-<%= $dialogs %>">
-                <span class="badge badge-primary">
-                  %= scalar(@{$titles->{$title}{incidents}})
-                </span> Incidents
-              </button>
-              </div>
-            </td>
-
-            <td>
-              <ul class="summary-list">
-                % for my $summary (@{$titles->{$title}{summaries}}) {
-                  <li>
-                    %= summary $summary
-                  </li>
-                % }
-              </ul>
-            </td>
-          </tr>
-        % }
-      % }
-      % else {
-        <tr><td colspan="2">No repos!</td></tr>
-      % }
+        <tr is="repo-line"
+         v-for="(repo , name) in repos"
+         v-bind:repo="repo"
+         v-bind:name="name"
+         v-bind:key="name"
+            >
+        </tr>
       </tbody>
     </table>
+    <repo-incidents-dialog ref="incidentsDialog"/>
   </div>
+ </div>
 </div>
+
+%= javascript begin
+
+var app = new Vue({
+  el: '#app',
+  created: function() {
+    this.getBlocked();
+    this.timer = setInterval(this.getBlocked, 10 * 60000);
+  },
+  data: {  
+     repos: []
+  },
+  methods: {
+    getBlocked: function() {
+      var self = this;
+      axios.get('/repos').then(
+        function(response) {
+          self.repos = response.data;
+        }
+      );
+    },
+    cancelAutoUpdate () {
+      clearInterval(this.timer);
+    }
+  },
+  beforeDestroy () {
+    this.cancelAutoUpdate();
+  }
+});
+% end
