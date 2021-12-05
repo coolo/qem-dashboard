@@ -12,6 +12,10 @@
 
     %= javascript begin
       %= content_for 'head_javascript'
+      var openqa_url = "<%= $c->openqa_url->path('/tests/overview') %>";
+      var obs_url = "<%= $c->app->config->{obs}{url} %>";
+      var smelt_url = "<%= $c->app->config->{smelt}{url} %>";
+
       $(function() {
         fromNow();
         backToTop();

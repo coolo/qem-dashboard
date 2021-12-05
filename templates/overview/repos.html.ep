@@ -1,9 +1,4 @@
 % layout 'default', title => 'Test Repos';
-%= asset 'vue.js'
-
-% content_for head_javascript => begin
- var openqa_url = "<%= $c->openqa_url->path('/tests/overview') %>";
-% end
 
 <div id="app">
  <div class="row">
