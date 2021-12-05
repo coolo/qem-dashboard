@@ -17,12 +17,12 @@ package Dashboard::Controller::Overview;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 sub blocked ($self) {
-  $self->respond_to(json => {json => $self->incidents->blocked}, any => sub { $self->render; });
+  $self->respond_to(json => sub { $self->render(json => $self->incidents->blocked) }, any => sub { $self->render; });
 }
 
 sub index ($self) {
   $self->respond_to(
-    json => {json => $self->incidents->find},
+    json => sub { render(json => $self->incidents->find) },
     any  => sub {
       $self->render;
     }
@@ -30,18 +30,20 @@ sub index ($self) {
 }
 
 sub incident ($self) {
-  my $number    = $self->param('incident');
-  my $incidents = $self->incidents;
-  my $incident  = $incidents->incident_for_number($number);
+  my $number = $self->param('incident');
 
   $self->respond_to(
-    json => {
-      json => {
-        jobs             => $incidents->openqa_summary_only_aggregates($incident),
-        incident         => $incident,
-        build_nr         => $incidents->build_nr($incident),
-        incident_summary => $incidents->openqa_summary_only_incident($incident)
-      }
+    json => sub {
+      my $incidents = $self->incidents;
+      my $incident  = $incidents->incident_for_number($number);
+      $self->render(
+        json => {
+          jobs             => $incidents->openqa_summary_only_aggregates($incident),
+          incident         => $incident,
+          build_nr         => $incidents->build_nr($incident),
+          incident_summary => $incidents->openqa_summary_only_incident($incident)
+        }
+      );
     },
     any => sub {
       $self->render(number => $number);
@@ -51,7 +53,7 @@ sub incident ($self) {
 
 sub repos ($self) {
   $self->respond_to(
-    json => {json => $self->incidents->repos},
+    json => sub { $self->render(json => $self->incidents->repos) },
     any  => sub {
       $self->render;
     }
