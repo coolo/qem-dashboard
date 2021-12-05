@@ -35,3 +35,4 @@
 < repo-incidents-dialog.vue
 < smelt-link.vue
 < incident-build-summary.vue
+< incident.vue

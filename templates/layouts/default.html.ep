@@ -15,7 +15,8 @@
       var openqa_url = "<%= $c->openqa_url->path('/tests/overview') %>";
       var obs_url = "<%= $c->app->config->{obs}{url} %>";
       var smelt_url = "<%= $c->app->config->{smelt}{url} %>";
-
+      var blocked_url = "<%= url_for('blocked') %>";
+ 
       $(function() {
         fromNow();
         backToTop();
