@@ -8,7 +8,7 @@
 <div id="app">
  <div class="row">
    <div class="col-md-12">
-    <table class="table">
+    <table class="table" v-if="repos">
       <thead>
         <tr>
           <th>Group</th>
@@ -25,6 +25,9 @@
         </tr>
       </tbody>
     </table>
+    <div v-else>
+    Loading repos...
+    </div>
     <repo-incidents-dialog ref="incidentsDialog"/>
   </div>
  </div>
@@ -39,7 +42,7 @@ var app = new Vue({
     this.timer = setInterval(this.getBlocked, 10 * 60000);
   },
   data: {  
-     repos: []
+     repos: null,
   },
   methods: {
     getBlocked: function() {
