@@ -1,5 +1,4 @@
 % layout 'default', title => "Details for incident $number";
-;
 %= asset 'vue.js'
 
 % content_for head_javascript => begin
