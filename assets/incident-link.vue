@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a v-bind:name="number" />
-    <a class="incident-link" v-bind:href="incident_url">{{number}}:{{package_name}}</a>
+    <a v-bind:name="incident.number" />
+    <a class="incident-link" v-bind:href="incident_url">{{incident.number}}:{{package_name}}</a>
   </div>
 </template>
 
@@ -14,8 +14,7 @@
       },
       package_name: function() {
         return this.incident.packages[0];
-      },
-      number: function() { return this.incident.number; }
+      }
     }
   }
 </script>

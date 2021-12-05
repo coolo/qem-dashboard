@@ -35,3 +35,5 @@
 < blocked-incident.vue
 < repo-line.vue
 < repo-incidents-dialog.vue
+< smelt-link.vue
+< incident-build-summary.vue

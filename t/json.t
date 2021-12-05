@@ -247,7 +247,8 @@ subtest 'Incident Details' => sub {
         }
       ]
     }
-  );
+  )->json_is('/incident_summary' => {waiting => 1, failed => 1, passed => 1})
+    ->json_is('/build_nr' => ':17063:perl-Mojolicious');
 
 };
 

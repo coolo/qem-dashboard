@@ -34,11 +34,17 @@ sub incident ($self) {
   my $incidents = $self->incidents;
   my $incident  = $incidents->incident_for_number($number);
 
-  my $jobs = $incidents->openqa_summary_only_aggregates($incident);
   $self->respond_to(
-    json => {json => {jobs => $jobs, incident => $incident}},
-    any  => sub {
-      $self->render(jobs => $jobs, incident => $incident);
+    json => {
+      json => {
+        jobs             => $incidents->openqa_summary_only_aggregates($incident),
+        incident         => $incident,
+        build_nr         => $incidents->build_nr($incident),
+        incident_summary => $incidents->openqa_summary_only_incident($incident)
+      }
+    },
+    any => sub {
+      $self->render(number => $number);
     }
   );
 }
@@ -52,7 +58,4 @@ sub repos ($self) {
   );
 }
 
-sub vue ($self) {
-
-}
 1;
