@@ -1,8 +1,6 @@
 % layout 'default', title => 'Active Incidents';
-%= asset 'vue.js'
 
 % content_for head_javascript => begin
- var blocked_url = "<%= url_for('blocked') %>";
  function incident_is_testing(incident) {
    return incident.rr_number > 0 && incident.approved == 0;
  }
