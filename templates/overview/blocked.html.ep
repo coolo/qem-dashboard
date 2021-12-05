@@ -8,7 +8,7 @@
 <div id="app">
  <div class="row">
    <div class="col-md-12">
-    <table class="table">
+    <table class="table" v-if="incidents">
       <thead>
         <tr>
           <th>Incident</th>
@@ -26,6 +26,9 @@
         </tr>
       </tbody>
     </table>
+    <div v-else>
+      Loading incidents...
+    </div>
   </div>
  </div>
 </div>
@@ -39,7 +42,7 @@ var app = new Vue({
     this.timer = setInterval(this.getBlocked, 10 * 60000);
   },
   data: {  
-     incidents: []
+     incidents: null
   },
   methods: {
     getBlocked: function() {

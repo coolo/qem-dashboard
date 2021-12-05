@@ -22,7 +22,7 @@ sub blocked ($self) {
 
 sub index ($self) {
   $self->respond_to(
-    json => sub { render(json => $self->incidents->find) },
+    json => sub { $self->render(json => $self->incidents->find) },
     any  => sub {
       $self->render;
     }
