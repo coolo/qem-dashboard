@@ -29,7 +29,14 @@
 </template>
 
 <script>
-module.exports = {
+import IncidentLinkComponent from './IncidentLink.vue'
+import BlockedIncidentIncResultComponent from './BlockedIncidentIncResult.vue'
+import BlockedIncidentUpdResultComponent from './BlockedIncidentUpdResult.vue'
+
+
+export default {
+  name: "BlockedIncidentComponent",
+  components: { 'incident-link': IncidentLinkComponent, 'blocked-incident-inc-result': BlockedIncidentIncResultComponent, 'blocked-incident-upd-result': BlockedIncidentUpdResultComponent },
   props: ['incident', 'incidentResults', 'updateResults', 'groupFlavors'],
   computed: {
     updateResultsGrouped: function() {

@@ -1,31 +1,3 @@
 % layout 'default', title => 'Blocked by Tests';
 
-<div id="app">
- <div class="row">
-   <div class="col-md-12">
-     <blocked ref="blocked"></blocked>
-   </div>
- </div>
-</div>
-
-%= javascript begin
-
-var app = new Vue({
-  el: '#app',
-  mounted: function() {
-    this.getBlocked();
-    this.timer = setInterval(this.getBlocked, 10 * 60000);
-  },
-  methods: {
-    getBlocked: function() {
-      this.$refs.blocked.loadData();
-    },
-    cancelAutoUpdate () {
-      clearInterval(this.timer);
-    }
-  },
-  beforeDestroy () {
-    this.cancelAutoUpdate();
-  }
-});
-% end
+<div id="app"></div>

@@ -1,7 +1,9 @@
 import './sass/app.scss';
 import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import App from './vue/App.vue'
 import $ from 'jquery';
+import Vue from 'vue'
 
 window.$ = $;
 
@@ -15,6 +17,11 @@ function fromNow() {
 }
 
 function backToTop() {
+  new Vue({
+  el: '#app',
+  render: h => h(App)
+ });
+
   $(window).scroll(function () {
     if ($(this).scrollTop() > 50) {
       $('#back-to-top').fadeIn();
@@ -33,3 +40,4 @@ window.addEventListener('load', function () {
   backToTop();
   $('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
 });
+

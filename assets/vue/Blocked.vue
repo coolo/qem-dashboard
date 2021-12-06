@@ -30,7 +30,12 @@
 </template>
 
 <script>
-    module.exports = {
+import axios from 'axios'
+import BlockedIncidentComponent from './BlockedIncident.vue'
+
+export default {
+        name: "BlockedComponent",
+        components: { 'blocked-incident': BlockedIncidentComponent },
         data: function() { 
             return {
                 incidents: null,

@@ -8,7 +8,11 @@
 </template>
 
 <script>
-module.exports = {
+import ResultSummaryComponent from './ResultSummary.vue'
+
+export default {
+  name: "BlockedIncidentUpdResultComponent",
+  components: { 'result-summary': ResultSummaryComponent },
   props: ['result', 'groupId', 'groupFlavors'],
   computed: {
     title: function() {

@@ -6,7 +6,8 @@
 </template>
 
 <script>
-  module.exports = {
+  export default {
+    name: "IncidentLinkComponent",
     props: ['incident'],
     computed: {
       incident_url: function() {

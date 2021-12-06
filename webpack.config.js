@@ -3,7 +3,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import OptimizeCSSAssetsPlugin from 'css-minimizer-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
-// import VueLoaderPlugin from 'vue-loader';
+import VueLoaderPlugin from 'vue-loader/lib/plugin.js';
 
 const assetsDir = process.env.WEBPACK_ASSETS_DIR || path.resolve(__dirname, 'assets');
 const isDev = process.env.NODE_ENV !== 'production';
@@ -40,7 +40,7 @@ rules.push({
   use: [MiniCssExtractPlugin.loader, {loader: 'css-loader', options: {sourceMap: true, url: false}}]
 });
 
-//  rules.push({test: /\.vue$/, use: 'vue-loader'});
+rules.push({test: /\.vue$/, use: 'vue-loader'});
 
 rules.push({
   test: /\.s(a|c)ss$/,
@@ -61,7 +61,7 @@ export default {
     new CopyWebpackPlugin({
       patterns: [{from: './node_modules/@fortawesome/fontawesome-free/webfonts', to: './webfonts'}]
     }),
-    new MiniCssExtractPlugin({filename: isDev ? '[name].development.css' : '[name].[contenthash].css'})
-    //new VueLoaderPlugin()
+    new MiniCssExtractPlugin({filename: isDev ? '[name].development.css' : '[name].[contenthash].css'}),
+    new VueLoaderPlugin()
   ]
 };

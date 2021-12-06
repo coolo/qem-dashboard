@@ -19,7 +19,8 @@
 </template>
 
 <script>
-module.exports = {
+export default {
+  name: "ResultSummaryComponent",
   props: ['result'],
   computed: {
     result_link: function () {
