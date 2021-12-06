@@ -20,7 +20,7 @@ sub blocked ($self) {
   $self->respond_to(json => sub { $self->render(json => $self->incidents->blocked) }, any => sub { $self->render; });
 }
 
-sub index ($self) {
+sub list ($self) {
   $self->respond_to(
     json => sub { $self->render(json => $self->incidents->find) },
     any  => sub {

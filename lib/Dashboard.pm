@@ -96,7 +96,7 @@ sub startup ($self) {
   my $token = $public->under('/')->to('Auth::Token#check');
 
   # Dashboard UI
-  $public->get('/')->to('overview#index')->name('incidents');
+  $public->get('/list')->to('overview#list')->name('incidents');
   $public->get('/blocked')->to('overview#blocked')->name('blocked');
   $public->get('/repos')->to('overview#repos')->name('repos');
   $public->get('/incident/<incident:num>')->to('overview#incident')->name('incident');
