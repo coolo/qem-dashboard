@@ -31,7 +31,7 @@ module.exports = {
   },
   methods: {
       triggerModal: function() {
-          let dialog = this.$root.$refs.incidentsDialog;
+          const dialog = this.$root.$refs.incidentsDialog;
           dialog.title = this.name;
           dialog.incidents = this.repo.incidents;
           $('#update-incidents').modal('show')

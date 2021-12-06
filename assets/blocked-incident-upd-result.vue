@@ -1,5 +1,5 @@
 <template>
-  <li v-bind:group-id="group_id"
+  <li v-bind:group-id="groupId"
     data-toggle="tooltip"
     data-placement="left"
     v-bind:title="title">
@@ -9,10 +9,14 @@
 
 <script>
 module.exports = {
-  props: ['result', 'group_id'],
+  props: ['result', 'groupId', 'groupFlavors'],
   computed: {
     title: function() {
-      return "Aggregate: " + this.result.linkinfo.flavor + "-" + this.result.linkinfo.version;
+      if (this.groupFlavors) {
+        return "Aggregate: " + this.result.linkinfo.version;
+      } else {
+        return "Aggregate: " + this.result.linkinfo.flavor + "-" + this.result.linkinfo.version;
+      }
     },
   }
 };

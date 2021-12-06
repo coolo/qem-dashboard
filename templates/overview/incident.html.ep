@@ -16,7 +16,6 @@ var app = new Vue({
   },
   methods: {
     getData: function() {
-      let component = this.$refs.incidentComponent;
       this.$refs.incidentComponent.loadData(<%= $number %>);
     },
     cancelAutoUpdate () {
