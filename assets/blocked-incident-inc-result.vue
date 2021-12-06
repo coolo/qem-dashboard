@@ -1,11 +1,11 @@
 <template>
-  <li v-bind:data-group-id="group_id" >
+  <li v-bind:data-group-id="groupId" >
     <result-summary v-bind:result="result"></result-summary>
   </li>
 </template>
 
 <script>
 module.exports = {
-  props: ['result', 'group_id']
+  props: ['result', 'groupId']
 };
 </script>
