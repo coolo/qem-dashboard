@@ -56,12 +56,7 @@ var app = new Vue({
   },
   methods: {
     getBlocked: function() {
-      var self = this;
-      axios.get('/').then(
-        function(response) {
-          self.incidents = response.data;
-        }
-      );
+      axios.get('/').then(response => self.incidents = response.data);
     },
     cancelAutoUpdate () {
       clearInterval(this.timer);

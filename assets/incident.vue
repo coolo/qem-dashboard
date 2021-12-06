@@ -58,15 +58,14 @@ module.exports = {
   },
   methods: {
     loadData: function(number) {
-      var self = this;
       // the format is not necessary for mojo, but import for 
       // chromium to keep the caches apart
       axios.get('/incident/' + number + "?_format=json").then(
-        function(response) {
-          self.incident = response.data.incident;
-          self.incident.build_nr = response.data.build_nr;
-          self.summary = response.data.incident_summary;
-          self.jobs = response.data.jobs; 
+        response => {
+          this.incident = response.data.incident;
+          this.incident.build_nr = response.data.build_nr;
+          this.summary = response.data.incident_summary;
+          this.jobs = response.data.jobs; 
         }
       );
     },

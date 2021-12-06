@@ -20,11 +20,11 @@ module.exports = {
                 ).length;
         },
         interesting_groups: function() {
-            let groups = new Map();
-            let links = new Map();
+            const groups = new Map();
+            const links = new Map();
             for (const job of this.jobs) {
                 if (job.status == 'passed') continue;
-                let key = job.job_group + "@" + job.flavor;
+                const key = job.job_group + "@" + job.flavor;
                 if (!groups.get(key)) {
                     groups.set(key, new Map());
                     links.set(key, {
@@ -37,9 +37,9 @@ module.exports = {
                 }
                 groups.get(key).set(job.status, (groups.get(key).get(job.status) || 0) + 1);
             }
-            let ret = new Array();
+            const ret = new Array();
             for (let [build, stat] of groups) {
-                let summary = new Array();
+                const summary = new Array();
                 for (const [key, value] of stat.entries()) {
                      summary.push(value + " " + key);
                 }

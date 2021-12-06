@@ -39,12 +39,7 @@
         },
         methods: {
             loadData: function() {
-                var self = this;
-                axios.get('/blocked?_format=json').then(
-                    function(response) {
-                    self.incidents = response.data;
-                    }
-                );
+                axios.get('/blocked?_format=json').then(response => this.incidents = response.data)
             },
         }
     }   

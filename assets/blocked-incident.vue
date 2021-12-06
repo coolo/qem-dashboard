@@ -35,12 +35,12 @@ module.exports = {
     updateResultsGrouped: function() {
       if (!this.groupFlavors)
         return this.updateResults;
-      let results = new Object();
+      const results = new Object();
       for (const [key, value] of Object.entries(this.updateResults)) {
-        let flavor = value.linkinfo.flavor;
-        let version = value.linkinfo.version;
-        let groupid = value.linkinfo.groupid;
-        let newkey = `${groupid}:${version}`;
+        const flavor = value.linkinfo.flavor;
+        const version = value.linkinfo.version;
+        const groupid = value.linkinfo.groupid;
+        const newkey = `${groupid}:${version}`;
         if (!(newkey in results)) {
           results[newkey] = {name: value.name, passed: 0, failed: 0, stopped: 0, waiting: 0};
           results[newkey].linkinfo = value.linkinfo;
