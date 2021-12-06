@@ -3,28 +3,8 @@
 <div id="app">
  <div class="row">
    <div class="col-md-12">
-    <table class="table" v-if="incidents">
-      <thead>
-        <tr>
-          <th>Incident</th>
-          <th>Groups</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr is="blocked-incident"
-         v-for="incident in incidents"
-         v-bind:key="incident.incident.number"
-         v-bind:incident="incident.incident"
-         v-bind:incident_results="incident.incident_results"
-         v-bind:update_results="incident.update_results"
-            >
-        </tr>
-      </tbody>
-    </table>
-    <div v-else>
-      Loading incidents...
-    </div>
-  </div>
+     <blocked ref="blocked"></blocked>
+   </div>
  </div>
 </div>
 
@@ -32,21 +12,13 @@
 
 var app = new Vue({
   el: '#app',
-  created: function() {
+  mounted: function() {
     this.getBlocked();
     this.timer = setInterval(this.getBlocked, 10 * 60000);
   },
-  data: {  
-     incidents: null
-  },
   methods: {
     getBlocked: function() {
-      var self = this;
-      axios.get('/blocked').then(
-        function(response) {
-          self.incidents = response.data;
-        }
-      );
+      this.$refs.blocked.loadData();
     },
     cancelAutoUpdate () {
       clearInterval(this.timer);

@@ -36,3 +36,4 @@
 < smelt-link.vue
 < incident-build-summary.vue
 < incident.vue
+< blocked.vue
