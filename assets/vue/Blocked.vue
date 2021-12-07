@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     loadData: function () {
-      axios.get('/blocked?_format=json').then(response => (this.incidents = response.data));
+      axios.get('/json/blocked').then(response => (this.incidents = response.data));
     }
   }
 };

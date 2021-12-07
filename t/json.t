@@ -31,7 +31,7 @@ $dashboard_test->minimal_fixtures($t->app);
 
 subtest 'List incidents' => sub {
 
-  $t->get_ok('/' => {Accept => 'application/json'})->status_is(200)->json_is(
+  $t->get_ok('/secret/api/list' => {Accept => 'application/json'})->status_is(200)->json_is(
     [
       {
         "approved"    => 0,
@@ -76,7 +76,7 @@ subtest 'List incidents' => sub {
 
 subtest 'Blocked by Tests' => sub {
 
-  $t->get_ok('/blocked' => {Accept => 'application/json'})->status_is(200)->json_is(
+  $t->get_ok('/secret/api/blocked' => {Accept => 'application/json'})->status_is(200)->json_is(
     [
       {
         incident => {
@@ -128,7 +128,7 @@ subtest 'Blocked by Tests' => sub {
 };
 
 subtest 'Test Repos' => sub {
-  $t->get_ok('/repos' => {Accept => 'application/json'})->status_is(200)->json_is(
+  $t->get_ok('/secret/api/repos' => {Accept => 'application/json'})->status_is(200)->json_is(
     '/Server-DVD-Incidents-12-SP5-x86_64/incidents' => [
       {"id" => 1, "number" => 16860, "packages" => ['perl-Mojolicious']},
       {"id" => 2, "number" => 16861, "packages" => ['perl-Minion', 'perl-Mojo-Pg']}
@@ -177,7 +177,7 @@ subtest 'Test Repos' => sub {
 };
 
 subtest 'Incident Details' => sub {
-  $t->get_ok('/incident/16860' => {Accept => 'application/json'})->status_is(200)->json_is(
+  $t->get_ok('/secret/api/incident/16860' => {Accept => 'application/json'})->status_is(200)->json_is(
     '/incident' => {
       "active"     => 1,
       "approved"   => 0,
