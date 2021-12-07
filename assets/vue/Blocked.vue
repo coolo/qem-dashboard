@@ -33,17 +33,22 @@ import BlockedIncidentComponent from './BlockedIncident.vue';
 
 export default {
   name: 'BlockedComponent',
-  title: 'Blocked by Tests',
   components: {'blocked-incident': BlockedIncidentComponent},
-  data: function () {
+  data() {
     return {
       incidents: null,
       groupFlavors: true
     };
   },
+  created() {
+    this.loadData();
+  },
+  watch: {
+    $route: 'loadData'
+  },
   methods: {
-    loadData: function () {
-      axios.get('/json/blocked').then(response => (this.incidents = response.data));
+    loadData() {
+      axios.get('/secret/api/blocked').then(response => (this.incidents = response.data));
     }
   }
 };

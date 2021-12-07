@@ -96,7 +96,7 @@ sub startup ($self) {
   my $token = $public->under('/')->to('Auth::Token#check');
 
   # Dashboard UI JSON
-  my $json = $public->any('/json' => [format => ['json']])->to(format => undef);
+  my $json = $public->any('/secret/api' => [format => ['json']])->to(format => undef);
   $json->get('/list')->to('overview#list');
   $json->get('/blocked')->to('overview#blocked');
   $json->get('/repos')->to('overview#repos');

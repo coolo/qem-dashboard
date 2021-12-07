@@ -22,7 +22,11 @@
 </template>
 
 <script>
-module.exports = {
+import ResultSummaryComponent from './ResultSummary.vue';
+
+export default {
+  name: 'RepoLineComponent',
+  components: {'result-summary': ResultSummaryComponent},
   props: ['repo', 'name'],
   computed: {
     incident_number: function () {

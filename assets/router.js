@@ -1,6 +1,9 @@
+import ActiveComponent from './vue/Active.vue';
+import BlockedComponent from './vue/Blocked.vue';
+import ReposComponent from './vue/Repos.vue';
+import IncidentComponent from './vue/Incident.vue';
 import Vue from 'vue';
 import Router from 'vue-router';
-import BlockedComponent from './vue/Blocked.vue';
 
 Vue.use(Router);
 
@@ -9,30 +12,27 @@ export default new Router({
   routes: [
     {
       path: '/',
-      props(route) {
-        const matched = route.matched;
-        if (matched.length > 1) {
-          return matched[1].meta;
-        }
-        return {};
-      },
-      children: [
-        {
-          path: '',
-          name: 'home',
-          component: BlockedComponent
-        },
-        {
-          path: 'blocked',
-          name: 'blocked',
-          component: BlockedComponent
-        },
-        {
-          path: 'repos',
-          name: 'repos',
-          component: BlockedComponent
-        }
-      ]
+      name: 'home',
+      component: ActiveComponent,
+      meta: {title: 'Active Incidents'}
+    },
+    {
+      path: '/blocked',
+      name: 'blocked',
+      component: BlockedComponent,
+      meta: {title: 'Blocked by Tests'}
+    },
+    {
+      path: '/repos',
+      name: 'repos',
+      component: ReposComponent,
+      meta: {title: 'Test Repos'}
+    },
+    {
+      path: '/incident/:id',
+      name: 'incident',
+      component: IncidentComponent,
+      meta: {title: "Details for Incident"}
     }
   ]
 });

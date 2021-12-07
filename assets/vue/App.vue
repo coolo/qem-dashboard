@@ -54,7 +54,6 @@
       <div class="row">
         <div class="col-md-12">
           <router-view></router-view>
-          <blocked-component ref="blocked"></blocked-component>
         </div>
       </div>
 
@@ -72,12 +71,10 @@
 </template>
 
 <script>
-import BlockedComponent from './Blocked.vue';
-
 export default {
   name: 'App',
   data: function () {
-    return {title: 'Unknown', last_updated: 0};
+    return {last_updated: 0};
   },
   computed: {
     // exported by mojo into the global head script
@@ -86,23 +83,11 @@ export default {
     },
     mojo_status_url: function () {
       return mojo_status_url;
-    }
-  },
-  components: {BlockedComponent},
-  mounted: function () {
-    this.getBlocked();
-    this.timer = setInterval(this.getBlocked, 10 * 60000);
-  },
-  methods: {
-    getBlocked: function () {
-      this.$refs.blocked.loadData();
     },
-    cancelAutoUpdate() {
-      clearInterval(this.timer);
+    title() {
+      document.title = this.$route.meta.title;
+      return this.$route.meta.title;
     }
-  },
-  beforeDestroy() {
-    this.cancelAutoUpdate();
   }
 };
 </script>

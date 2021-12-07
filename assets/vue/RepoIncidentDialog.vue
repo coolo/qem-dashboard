@@ -31,7 +31,8 @@
 </template>
 
 <script>
-module.exports = {
+export default {
+  name: 'RepoIncidentDialogComponent',
   data: function () {
     return {
       incidents: [],

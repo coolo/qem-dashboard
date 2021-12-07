@@ -15,7 +15,8 @@
 </template>
 
 <script>
-module.exports = {
+export default {
+  name: "IncidentBuildSummaryComponent",
   props: ['build', 'jobs'],
   computed: {
     number_of_passed: function () {
@@ -53,5 +54,5 @@ module.exports = {
       return ret.sort((a, b) => a.build.localeCompare(b.build));
     }
   }
-};
+}
 </script>

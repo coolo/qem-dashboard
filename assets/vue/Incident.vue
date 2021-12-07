@@ -26,7 +26,12 @@
 </template>
 
 <script>
-module.exports = {
+import axios from 'axios';
+import SmeltLinkComponent from './SmeltLink.vue';
+import IncidentBuildSummaryComponent from './IncidentBuildSummary.vue';
+
+export default {
+  name: "IncidentComponent",
   data: function () {
     return {
       incident: null,
@@ -34,6 +39,8 @@ module.exports = {
       jobs: []
     };
   },
+  components: { 'smelt-link': SmeltLinkComponent,
+  'incident-build-summary': IncidentBuildSummaryComponent },
   computed: {
     results: function () {
       let str = '';
@@ -57,11 +64,14 @@ module.exports = {
       return Object.keys(this.jobs).sort().reverse();
     }
   },
+  created() {
+    this.loadData();
+  },
   methods: {
-    loadData: function (number) {
+    loadData() {
       // the format is not necessary for mojo, but import for
       // chromium to keep the caches apart
-      axios.get('/incident/' + number + '?_format=json').then(response => {
+      axios.get('/secret/api/incident/' + this.$route.params.id).then(response => {
         this.incident = response.data.incident;
         this.incident.build_nr = response.data.build_nr;
         this.summary = response.data.incident_summary;
@@ -69,5 +79,5 @@ module.exports = {
       });
     }
   }
-};
+}
 </script>

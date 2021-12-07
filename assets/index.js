@@ -1,17 +1,15 @@
 import './sass/app.scss';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import App from './vue/App.vue';
 import router from './router.js';
+
+import App from './vue/App.vue';
 import $ from 'jquery';
 import Vue from 'vue';
 
 window.$ = $;
 
 import 'timeago';
-
-import titleMixin from './mixins/titleMixin.js';
-Vue.mixin(titleMixin);
 
 function fromNow() {
   $('.from-now').each(function () {

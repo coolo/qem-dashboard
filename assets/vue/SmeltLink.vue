@@ -8,7 +8,8 @@
 </template>
 
 <script>
-module.exports = {
+export default {
+  name: "SmeltLinkComponent",
   props: ['incident'],
   computed: {
     obs_link: function () {
@@ -21,5 +22,5 @@ module.exports = {
       return this.incident.packages[0];
     }
   }
-};
+}
 </script>
