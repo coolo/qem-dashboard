@@ -33,6 +33,7 @@ import BlockedIncidentComponent from './BlockedIncident.vue';
 
 export default {
   name: 'BlockedComponent',
+  title: 'Blocked by Tests',
   components: {'blocked-incident': BlockedIncidentComponent},
   data: function () {
     return {

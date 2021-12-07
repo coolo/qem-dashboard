@@ -60,4 +60,7 @@ sub repos ($self) {
   );
 }
 
+sub index ($self) {
+}
+
 1;

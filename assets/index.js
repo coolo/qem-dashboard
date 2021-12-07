@@ -2,12 +2,16 @@ import './sass/app.scss';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import App from './vue/App.vue';
+import router from './router.js';
 import $ from 'jquery';
 import Vue from 'vue';
 
 window.$ = $;
 
 import 'timeago';
+
+import titleMixin from './mixins/titleMixin.js';
+Vue.mixin(titleMixin);
 
 function fromNow() {
   $('.from-now').each(function () {
@@ -17,11 +21,6 @@ function fromNow() {
 }
 
 function backToTop() {
-  new Vue({
-    el: '#app',
-    render: h => h(App)
-  });
-
   $(window).scroll(function () {
     if ($(this).scrollTop() > 50) {
       $('#back-to-top').fadeIn();
@@ -36,6 +35,13 @@ function backToTop() {
 }
 
 window.addEventListener('load', function () {
+  new Vue({
+    el: '#app',
+    router,
+    render: h => h(App),
+    components: {App}
+  });
+
   fromNow();
   backToTop();
   $('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
