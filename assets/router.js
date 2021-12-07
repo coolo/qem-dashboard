@@ -1,7 +1,7 @@
 import ActiveComponent from './vue/Active.vue';
 import BlockedComponent from './vue/Blocked.vue';
-import ReposComponent from './vue/Repos.vue';
 import IncidentComponent from './vue/Incident.vue';
+import ReposComponent from './vue/Repos.vue';
 import Vue from 'vue';
 import Router from 'vue-router';
 
@@ -32,7 +32,7 @@ export default new Router({
       path: '/incident/:id',
       name: 'incident',
       component: IncidentComponent,
-      meta: {title: "Details for Incident"}
+      meta: {title: 'Details for Incident'}
     }
   ]
 });

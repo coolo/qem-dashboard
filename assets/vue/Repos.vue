@@ -8,7 +8,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr is="repo-line" v-for="(repo, name) in repos" v-bind:repo="repo" v-bind:name="name" v-bind:key="name"></tr>
+        <tr is="repo-line" v-for="(repo, name) in repos" :repo="repo" :name="name" :key="name" />
       </tbody>
     </table>
     <div v-else>Loading repos...</div>

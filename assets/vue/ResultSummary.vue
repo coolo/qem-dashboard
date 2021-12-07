@@ -1,17 +1,17 @@
 <template>
-  <a v-if="result_failed > 0" v-bind:href="result_link" class="btn btn-danger" target="_blank">
+  <a v-if="result_failed > 0" :href="result_link" class="btn btn-danger" target="_blank">
     {{ result.name }} <span class="badge badge-light">{{ result_failed }}/{{ total }}</span>
     <span class="sr-only">failed jobs</span>
   </a>
-  <a v-else-if="result_stopped > 0" v-bind:href="result_link" class="btn btn-secondary" target="_blank">
+  <a v-else-if="result_stopped > 0" :href="result_link" class="btn btn-secondary" target="_blank">
     {{ result.name }} <span class="badge badge-light">{{ result_stopped }}/{{ total }}</span>
     <span class="sr-only">stopped jobs</span>
   </a>
-  <a v-else-if="result_waiting > 0" v-bind:href="result_link" class="btn btn-info" target="_blank">
+  <a v-else-if="result_waiting > 0" :href="result_link" class="btn btn-info" target="_blank">
     {{ result.name }} <span class="badge badge-light">{{ result_waiting }}/{{ total }}</span>
     <span class="sr-only">stopped jobs</span>
   </a>
-  <a v-else-if="result_passed == total" v-bind:href="result_link" class="btn btn-success" target="_blank">
+  <a v-else-if="result_passed == total" :href="result_link" class="btn btn-success" target="_blank">
     {{ result.name }} <span class="badge badge-light">{{ total }}</span>
     <span class="sr-only">passed jobs</span>
   </a>
@@ -21,11 +21,11 @@
 <script>
 export default {
   name: 'ResultSummaryComponent',
-  props: ['result'],
+  props: {result: {type: Object, required: true}},
   computed: {
     result_link: function () {
       const searchParams = new URLSearchParams(this.result.linkinfo);
-      return openqa_url + '?' + searchParams.toString();
+      return this.$openqa_url + '?' + searchParams.toString();
     },
     result_stopped: function () {
       return this.result.stopped || 0;

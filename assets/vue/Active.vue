@@ -7,16 +7,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="incident in testing_incidents" v-bind:blocked_url="blocked_url" v-bind:key="incident.number">
-        <td><incident-link v-bind:incident="incident"></incident-link></td>
+      <tr v-for="incident in testing_incidents" :key="incident.number">
+        <td><incident-link :incident="incident" /></td>
         <td>
-          <a v-bind:href="blocked_url + '#' + incident.number">
+          <a :href="'/blocked#' + incident.number">
             <span class="badge badge-primary">testing</span>
           </a>
         </td>
       </tr>
-      <tr v-for="incident in staged_incidents" v-bind:key="incident.number">
-        <td><incident-link v-bind:incident="incident"></incident-link></td>
+      <tr v-for="incident in staged_incidents" :key="incident.number">
+        <td><incident-link :incident="incident" /></td>
         <td><span class="badge badge-secondary">staged</span></td>
       </tr>
     </tbody>
@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import IncidentLinkComponent from './IncidentLink.vue';
+import axios from 'axios';
 
 export default {
   name: 'ActiveComponent',
@@ -42,9 +42,6 @@ export default {
     },
     staged_incidents: function () {
       return this.incidents.filter(incident => !incident.rr_number && incident.approved == 0);
-    },
-    blocked_url: function () {
-      return blocked_url;
     }
   },
   created() {

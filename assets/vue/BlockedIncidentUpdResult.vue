@@ -1,6 +1,6 @@
 <template>
-  <li v-bind:group-id="groupId" data-toggle="tooltip" data-placement="left" v-bind:title="title">
-    <result-summary v-bind:result="result"></result-summary>
+  <li :group-id="groupId" data-toggle="tooltip" data-placement="left" :title="title">
+    <result-summary :result="result" />
   </li>
 </template>
 
@@ -10,7 +10,7 @@ import ResultSummaryComponent from './ResultSummary.vue';
 export default {
   name: 'BlockedIncidentUpdResultComponent',
   components: {'result-summary': ResultSummaryComponent},
-  props: ['result', 'groupId', 'groupFlavors'],
+  props: {result: {type: Object, required: true}, groupId: {type: Number, required: true}, groupFlavors: Boolean},
   computed: {
     title: function () {
       if (this.groupFlavors) {

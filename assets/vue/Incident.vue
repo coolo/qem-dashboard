@@ -3,35 +3,30 @@
     <div class="smelt-link">
       <h2>Link to smelt</h2>
       <p>
-        <smelt-link v-bind:incident="incident" v-if="incident" />
+        <smelt-link :incident="incident" v-if="incident" />
       </p>
     </div>
 
     <div class="incident-results" v-if="incident">
       <h2>Per incident results</h2>
       <p v-if="!incident.build_nr">No incident build found</p>
-      <p v-else>{{ results }} - see details on <a v-bind:href="openqa_link">openqa</a></p>
+      <p v-else>{{ results }} - see details on <a :href="openqa_link">openqa</a></p>
     </div>
 
     <h2 class="mb-3 mt-3">Aggregate runs including this incident</h2>
     <div class="container">
-      <incident-build-summary
-        v-for="build in sorted_builds"
-        v-bind:key="build"
-        v-bind:build="build"
-        v-bind:jobs="jobs[build]"
-      />
+      <incident-build-summary v-for="build in sorted_builds" :key="build" :build="build" :jobs="jobs[build]" />
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import SmeltLinkComponent from './SmeltLink.vue';
 import IncidentBuildSummaryComponent from './IncidentBuildSummary.vue';
+import SmeltLinkComponent from './SmeltLink.vue';
+import axios from 'axios';
 
 export default {
-  name: "IncidentComponent",
+  name: 'IncidentComponent',
   data: function () {
     return {
       incident: null,
@@ -39,8 +34,7 @@ export default {
       jobs: []
     };
   },
-  components: { 'smelt-link': SmeltLinkComponent,
-  'incident-build-summary': IncidentBuildSummaryComponent },
+  components: {'smelt-link': SmeltLinkComponent, 'incident-build-summary': IncidentBuildSummaryComponent},
   computed: {
     results: function () {
       let str = '';
@@ -58,7 +52,7 @@ export default {
     },
     openqa_link: function () {
       const searchParams = new URLSearchParams({build: this.incident.build_nr});
-      return openqa_url + '?' + searchParams.toString();
+      return this.$openqa_url + '?' + searchParams.toString();
     },
     sorted_builds: function () {
       return Object.keys(this.jobs).sort().reverse();
@@ -79,5 +73,5 @@ export default {
       });
     }
   }
-}
+};
 </script>

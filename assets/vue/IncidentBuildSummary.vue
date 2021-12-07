@@ -2,11 +2,11 @@
   <div class="card">
     <div class="card-body text-left">
       <h3 cass="card-title d-flex">Build {{ build }} ({{ number_of_passed }} passed)</h3>
-      <p v-for="group of interesting_groups" v-bind:key="group.build">
+      <p v-for="group of interesting_groups" :key="group.build">
         <strong>
-          Group <a v-bind:href="group.link">{{ group.build }}</a></strong
+          Group <a :href="group.link">{{ group.build }}</a></strong
         >
-        (<span v-for="(element, index) in group.summary" v-bind:key="element"
+        (<span v-for="(element, index) in group.summary" :key="element"
           ><span v-if="index != 0">, </span><mark>{{ element }}</mark></span
         >)
       </p>
@@ -16,8 +16,8 @@
 
 <script>
 export default {
-  name: "IncidentBuildSummaryComponent",
-  props: ['build', 'jobs'],
+  name: 'IncidentBuildSummaryComponent',
+  props: {build: {type: String, required: true}, jobs: {type: Array, required: true}},
   computed: {
     number_of_passed: function () {
       return this.jobs.filter(function (job) {
@@ -49,10 +49,10 @@ export default {
           summary.push(value + ' ' + key);
         }
         const searchParams = new URLSearchParams(links.get(build));
-        ret.push({build: build, link: openqa_url + '?' + searchParams.toString(), summary: summary.sort()});
+        ret.push({build: build, link: this.$openqa_url + '?' + searchParams.toString(), summary: summary.sort()});
       }
       return ret.sort((a, b) => a.build.localeCompare(b.build));
     }
   }
-}
+};
 </script>

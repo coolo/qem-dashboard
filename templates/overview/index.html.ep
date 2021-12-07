@@ -9,10 +9,10 @@
     %= asset 'qem-dashboard.css'
 
     %= javascript begin
-      var openqa_url = "<%= $c->openqa_url->path('/tests/overview') %>";
-      var obs_url = "<%= $c->app->config->{obs}{url} %>";
-      var smelt_url = "<%= $c->app->config->{smelt}{url} %>";
-      var blocked_url = "<%= url_for('blocked') %>";
+
+      var global_openqa_url = "<%= $c->openqa_url->path('/tests/overview') %>";
+      var global_obs_url = "<%= $c->app->config->{obs}{url} %>";
+      var global_smelt_url = "<%= $c->app->config->{smelt}{url} %>";
       % if (config 'status') {
         var config_status = true;
         var mojo_status_url = "<%= url_for 'mojo_status' %>";

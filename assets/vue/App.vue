@@ -3,8 +3,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3 border-bottom">
       <div class="container-fluid">
         <router-link :to="{name: 'home'}" exact class="navbar-brand">
-          <i class="fab fa-suse" style="color: green"></i>
-          <i class="fas fa-vial" style="color: purple"></i>
+          <i class="fab fa-suse" style="color: green" />
+          <i class="fas fa-vial" style="color: purple" />
         </router-link>
         <button
           class="navbar-toggler"
@@ -15,23 +15,23 @@
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon" />
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <router-link :to="{name: 'home'}" exact class="nav-link">Active</router-link>
+              <router-link :to="{name: 'home'}" exact class="nav-link"> Active </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{name: 'blocked'}" exact class="nav-link">Blocked</router-link>
+              <router-link :to="{name: 'blocked'}" exact class="nav-link"> Blocked </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{name: 'repos'}" exact class="nav-link">Repos</router-link>
+              <router-link :to="{name: 'repos'}" exact class="nav-link"> Repos </router-link>
             </li>
           </ul>
           <ul class="navbar-nav">
-            <li class="nav-item" v-if="config_status">
-              <a class="nav-link" v-bind:href="mojo_status_url" target="_blank">Status</a>
+            <li class="nav-item" v-if="$config_status">
+              <a class="nav-link" :href="$mojo_status_url" target="_blank">Status</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="https://github.com/openSUSE/qem-dashboard/blob/main/API.md" target="_blank">
@@ -53,7 +53,7 @@
 
       <div class="row">
         <div class="col-md-12">
-          <router-view></router-view>
+          <router-view />
         </div>
       </div>
 
@@ -64,7 +64,7 @@
         role="button"
         title="Click to return to the top"
       >
-        <i class="fas fa-angle-up"></i>
+        <i class="fas fa-angle-up" />
       </a>
     </div>
   </div>
@@ -77,13 +77,6 @@ export default {
     return {last_updated: 0};
   },
   computed: {
-    // exported by mojo into the global head script
-    config_status: function () {
-      return config_status;
-    },
-    mojo_status_url: function () {
-      return mojo_status_url;
-    },
     title() {
       document.title = this.$route.meta.title;
       return this.$route.meta.title;

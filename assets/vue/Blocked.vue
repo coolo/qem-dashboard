@@ -15,12 +15,12 @@
         <tr
           is="blocked-incident"
           v-for="incident in incidents"
-          v-bind:key="incident.incident.number"
-          v-bind:incident="incident.incident"
-          v-bind:incidentResults="incident.incident_results"
-          v-bind:updateResults="incident.update_results"
-          v-bind:groupFlavors="groupFlavors"
-        ></tr>
+          :key="incident.incident.number"
+          :incident="incident.incident"
+          :incident-results="incident.incident_results"
+          :update-results="incident.update_results"
+          :group-flavors="groupFlavors"
+        />
       </tbody>
     </table>
   </div>
@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import BlockedIncidentComponent from './BlockedIncident.vue';
+import axios from 'axios';
 
 export default {
   name: 'BlockedComponent',

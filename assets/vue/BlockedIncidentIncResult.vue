@@ -1,6 +1,6 @@
 <template>
-  <li v-bind:data-group-id="groupId">
-    <result-summary v-bind:result="result"></result-summary>
+  <li :data-group-id="groupId">
+    <result-summary :result="result" />
   </li>
 </template>
 
@@ -9,6 +9,6 @@ import ResultSummaryComponent from './ResultSummary.vue';
 export default {
   name: 'BlockedIncidentIncResultComponent',
   components: {'result-summary': ResultSummaryComponent},
-  props: ['result', 'groupId']
+  props: {result: {type: Object, required: true}, groupId: {type: Number, required: true}}
 };
 </script>

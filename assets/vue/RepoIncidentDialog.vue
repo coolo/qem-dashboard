@@ -17,8 +17,8 @@
         </div>
         <div class="modal-body">
           <ul>
-            <li v-for="incident in incidents" v-bind:key="incident.number">
-              <incident-link v-bind:incident="incident" />
+            <li v-for="incident in incidents" :key="incident.number">
+              <incident-link :incident="incident" />
             </li>
           </ul>
         </div>
