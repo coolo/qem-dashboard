@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import ResultSummaryComponent from './ResultSummary.vue'
- export default {
-  name: "BlockedIncidentIncResultComponent",
-  components: { 'result-summary': ResultSummaryComponent },
+import ResultSummaryComponent from './ResultSummary.vue';
+export default {
+  name: 'BlockedIncidentIncResultComponent',
+  components: {'result-summary': ResultSummaryComponent},
   props: ['result', 'groupId']
-}
+};
 </script>

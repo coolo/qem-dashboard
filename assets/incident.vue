@@ -1,74 +1,73 @@
 <template>
-    <div class="col-md-12">
-        <div class='smelt-link'>
-        <h2>Link to smelt</h2>
-        <p>
-            <smelt-link v-bind:incident="incident" v-if="incident"/>
-        </p>
-        </div>
-
-        <div class='incident-results' v-if="incident">
-        <h2>Per incident results</h2>
-        <p v-if="!incident.build_nr">No incident build found</p>
-        <p v-else>
-            {{ results }} - see details on <a v-bind:href="openqa_link">openqa</a>
-        </p>
-        </div>
-
-        <h2 class="mb-3 mt-3">Aggregate runs including this incident</h2>
-        <div class="container">
-        <incident-build-summary v-for="build in sorted_builds"
-            v-bind:key="build" v-bind:build="build" v-bind:jobs="jobs[build]"/>
-        </div>
+  <div class="col-md-12">
+    <div class="smelt-link">
+      <h2>Link to smelt</h2>
+      <p>
+        <smelt-link v-bind:incident="incident" v-if="incident" />
+      </p>
     </div>
-</template>    
+
+    <div class="incident-results" v-if="incident">
+      <h2>Per incident results</h2>
+      <p v-if="!incident.build_nr">No incident build found</p>
+      <p v-else>{{ results }} - see details on <a v-bind:href="openqa_link">openqa</a></p>
+    </div>
+
+    <h2 class="mb-3 mt-3">Aggregate runs including this incident</h2>
+    <div class="container">
+      <incident-build-summary
+        v-for="build in sorted_builds"
+        v-bind:key="build"
+        v-bind:build="build"
+        v-bind:jobs="jobs[build]"
+      />
+    </div>
+  </div>
+</template>
 
 <script>
 module.exports = {
-  data: function() {
-     return {
-        incident: null,
-        summary: null,
-        jobs: []
-     }
+  data: function () {
+    return {
+      incident: null,
+      summary: null,
+      jobs: []
+    };
   },
   computed: {
-    results: function() {
-      let str = "";
+    results: function () {
+      let str = '';
       if (this.summary.passed) {
-        str = this.summary.passed + " passed";
+        str = this.summary.passed + ' passed';
       }
       for (const [key, value] of Object.entries(this.summary)) {
-        if (key == "passed")
-          continue;
+        if (key == 'passed') continue;
         if (str) {
-          str += ", ";
+          str += ', ';
         }
-        str += value + " " + key;
+        str += value + ' ' + key;
       }
       return str;
     },
-    openqa_link: function() {
-        const searchParams = new URLSearchParams({build: this.incident.build_nr});
-        return openqa_url + "?" + searchParams.toString();
+    openqa_link: function () {
+      const searchParams = new URLSearchParams({build: this.incident.build_nr});
+      return openqa_url + '?' + searchParams.toString();
     },
-    sorted_builds: function() {
+    sorted_builds: function () {
       return Object.keys(this.jobs).sort().reverse();
     }
   },
   methods: {
-    loadData: function(number) {
-      // the format is not necessary for mojo, but import for 
+    loadData: function (number) {
+      // the format is not necessary for mojo, but import for
       // chromium to keep the caches apart
-      axios.get('/incident/' + number + "?_format=json").then(
-        response => {
-          this.incident = response.data.incident;
-          this.incident.build_nr = response.data.build_nr;
-          this.summary = response.data.incident_summary;
-          this.jobs = response.data.jobs; 
-        }
-      );
-    },
+      axios.get('/incident/' + number + '?_format=json').then(response => {
+        this.incident = response.data.incident;
+        this.incident.build_nr = response.data.build_nr;
+        this.summary = response.data.incident_summary;
+        this.jobs = response.data.jobs;
+      });
+    }
   }
-}
+};
 </script>

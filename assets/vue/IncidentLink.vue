@@ -6,16 +6,15 @@
 </template>
 
 <script>
-  export default {
-    name: "IncidentLinkComponent",
-    props: ['incident'],
-    computed: {
-      incident_url: function() {
-        return '/incident/' + this.incident.number;
-      },
-      package_name: function() {
-        return this.incident.packages[0];
-      }
+export default {
+  name: 'IncidentLinkComponent',
+  props: ['incident'],
+  computed: {
+    incident_url: function () {
+      return '/incident/' + this.incident.number;
+    },
+    package_name: function () {
+      return this.incident.packages[0];
     }
   }
 };
