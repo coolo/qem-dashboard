@@ -14,10 +14,10 @@
       var global_obs_url = "<%= $c->app->config->{obs}{url} %>";
       var global_smelt_url = "<%= $c->app->config->{smelt}{url} %>";
       % if (config 'status') {
-        var config_status = true;
-        var mojo_status_url = "<%= url_for 'mojo_status' %>";
+        var global_config_status = true;
+        var global_mojo_status_url = "<%= url_for 'mojo_status' %>";
       % } else {
-        var config_status = false;
+        var global_config_status = false;
       % }
     % end
   </head>

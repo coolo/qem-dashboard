@@ -9,6 +9,6 @@ import ResultSummaryComponent from './ResultSummary.vue';
 export default {
   name: 'BlockedIncidentIncResultComponent',
   components: {'result-summary': ResultSummaryComponent},
-  props: {result: {type: Object, required: true}, groupId: {type: Number, required: true}}
+  props: {result: {type: Object, required: true}, groupId: {type: String, required: true}}
 };
 </script>

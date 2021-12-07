@@ -38,8 +38,11 @@ export default {
     'blocked-incident-inc-result': BlockedIncidentIncResultComponent,
     'blocked-incident-upd-result': BlockedIncidentUpdResultComponent
   },
-  data() {
-    return {incident: null, incidentResults: null, updateResults: null, groupFlavors: true};
+  props: {
+    incident: {type: Object, required: true},
+    incidentResults: {type: Object, required: true},
+    updateResults: {type: Object, required: true},
+    groupFlavors: {type: Boolean, required: true}
   },
   computed: {
     updateResultsGrouped: function () {

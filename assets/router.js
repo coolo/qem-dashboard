@@ -2,12 +2,13 @@ import ActiveComponent from './vue/Active.vue';
 import BlockedComponent from './vue/Blocked.vue';
 import IncidentComponent from './vue/Incident.vue';
 import ReposComponent from './vue/Repos.vue';
+import jQuery from 'jquery';
 import Vue from 'vue';
 import Router from 'vue-router';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -36,3 +37,13 @@ export default new Router({
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (from.name == 'repos') {
+    // make sure not to leave black screens
+    jQuery('#update-incidents').modal('hide');
+  }
+  next();
+});
+
+export default router;

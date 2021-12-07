@@ -38,7 +38,7 @@ window.addEventListener('load', function () {
   Vue.prototype.$smelt_url = global_smelt_url;
   Vue.prototype.$obs_url = global_obs_url;
   Vue.prototype.$config_status = global_config_status;
-  Vue.prototype.$mojo_status_url = global_mojo_status_url;
+  if (Vue.prototype.$config_status) Vue.prototype.$mojo_status_url = global_mojo_status_url;
   new Vue({
     el: '#app',
     router,

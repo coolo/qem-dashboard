@@ -10,7 +10,7 @@ import ResultSummaryComponent from './ResultSummary.vue';
 export default {
   name: 'BlockedIncidentUpdResultComponent',
   components: {'result-summary': ResultSummaryComponent},
-  props: {result: {type: Object, required: true}, groupId: {type: Number, required: true}, groupFlavors: Boolean},
+  props: {result: {type: Object, required: true}, groupId: {type: String, required: true}, groupFlavors: Boolean},
   computed: {
     title: function () {
       if (this.groupFlavors) {

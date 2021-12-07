@@ -35,7 +35,23 @@ t.test('Test dashboard ui', skip, async t => {
     t.match(await page.innerText('tbody tr:nth-of-type(2) td:nth-of-type(2) span'), /staged/);
     t.match(await page.innerText('tbody tr:nth-of-type(3) td:nth-of-type(1) a'), /16862:curl/);
     t.match(await page.innerText('tbody tr:nth-of-type(3) td:nth-of-type(2) span'), /approved/);
+
+    await page.click('text=16860:perl-Mojolicious');
+    t.equal(page.url(), url + '/incident/16860');
+    t.equal(
+      await page.locator('text=openqa').getAttribute('href'),
+      'https://openqa.suse.de/tests/overview?build=%3A17063%3Aperl-Mojolicious'
+    );
   });
+
+  await t.test('Incident popup', async t => {
+    await page.goto(url + '/repos');
+    await page.click('text=2 Incidents');
+    await page.click('text=16860:perl-Mojolicious');
+    t.equal(page.url(), url + '/incident/16860');
+  });
+
+  // await page.pause();
 
   await context.close();
   await browser.close();

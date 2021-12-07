@@ -36,11 +36,10 @@ export default {
   },
   methods: {
     triggerModal: function () {
-      const dialog = this.$root.$refs.incidentsDialog;
+      const dialog = this.$parent.$refs.incidentsDialog;
       dialog.title = this.name;
       dialog.incidents = this.repo.incidents;
       jQuery('#update-incidents').modal('show');
-      console.log(this.repo);
     }
   }
 };

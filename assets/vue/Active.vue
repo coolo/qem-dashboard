@@ -19,6 +19,10 @@
         <td><incident-link :incident="incident" /></td>
         <td><span class="badge badge-secondary">staged</span></td>
       </tr>
+      <tr v-for="incident in approved_incidents" :key="incident.number">
+        <td><incident-link :incident="incident" /></td>
+        <td><span class="badge badge-success">approved</span></td>
+      </tr>
     </tbody>
   </table>
   <div v-else>Loading incidents...</div>
@@ -42,6 +46,9 @@ export default {
     },
     staged_incidents: function () {
       return this.incidents.filter(incident => !incident.rr_number && incident.approved == 0);
+    },
+    approved_incidents: function () {
+      return this.incidents.filter(incident => incident.approved == 1);
     }
   },
   created() {

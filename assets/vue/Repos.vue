@@ -12,7 +12,7 @@
       </tbody>
     </table>
     <div v-else>Loading repos...</div>
-    <repo-incidents-dialog ref="incidentsDialog" />
+    <repo-incidents-dialog ref="incidentsDialog"></repo-incidents-dialog>
   </div>
 </template>
 
