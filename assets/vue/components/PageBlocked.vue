@@ -10,6 +10,16 @@
           id="inlineSearch"
           placeholder="Search for Incident/Package"
         />
+        <select v-model="resultSelected" class="form-select" aria-label="Select result type">
+        <option value="all">Incident Jobs and Aggregates</option>
+        <option value="only-inc">Only Incidents Jobs</option>
+        <option value="only-agg">Only Aggregate Jobs</option>
+      </select>
+      <select v-model="channelSelected" class="form-select" aria-label="Select channel name">
+        <option value="all">All Channels</option>
+        <option v-for="channel in channels" :key="channel">{{ channel }}</option>
+      </select>
+
       </div>
       <div class="col-auto my-1">
         <div class="form-check">
@@ -33,6 +43,8 @@
           :incident-results="incident.incident_results"
           :update-results="incident.update_results"
           :group-flavors="groupFlavors"
+          :result-selected="resultSelected"
+          :channel-selected="channelSelected"
         />
       </tbody>
     </table>
@@ -53,10 +65,21 @@ export default {
       incidents: null,
       groupFlavors: true,
       matchText: '',
-      refreshUrl: '/app/api/blocked'
+      refreshUrl: '/app/api/blocked',
+      resultSelected: 'all',
+      channelSelected: 'all'
     };
   },
   computed: {
+    channels() {
+      const ret = new Set();
+      for (const incident of this.incidents) {
+        for (const result of Object.values(incident.update_results)) {
+          ret.add(result.name);
+        }
+      }
+      return [...ret].sort();
+    },
     matchedIncidents() {
       if (this.matchText) {
         return this.incidents.filter(incident => {
