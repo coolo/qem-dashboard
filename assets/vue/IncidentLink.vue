@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-link class="incident-link" :to="{name: 'incident', params: {id: incident.number}}">
-      {{ incident.number }}:{{ package_name }}
+      {{ incident.number }}:{{ packageName }}
     </router-link>
   </div>
 </template>
@@ -11,7 +11,7 @@ export default {
   name: 'IncidentLinkComponent',
   props: {incident: {type: Object, required: true}},
   computed: {
-    package_name: function () {
+    packageName() {
       return this.incident.packages[0];
     }
   }

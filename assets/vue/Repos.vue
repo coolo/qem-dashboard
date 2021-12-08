@@ -31,7 +31,7 @@ export default {
     return {repos: null};
   },
   methods: {
-    loadData: function () {
+    loadData() {
       axios.get('/secret/api/repos').then(response => {
         this.repos = response.data;
       });

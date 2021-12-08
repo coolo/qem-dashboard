@@ -1,17 +1,17 @@
 <template>
-  <a v-if="result_failed > 0" :href="result_link" class="btn btn-danger" target="_blank">
-    {{ result.name }} <span class="badge badge-light">{{ result_failed }}/{{ total }}</span>
+  <a v-if="failed > 0" :href="link" class="btn btn-danger" target="_blank">
+    {{ result.name }} <span class="badge badge-light">{{ failed }}/{{ total }}</span>
     <span class="sr-only">failed jobs</span>
   </a>
-  <a v-else-if="result_stopped > 0" :href="result_link" class="btn btn-secondary" target="_blank">
-    {{ result.name }} <span class="badge badge-light">{{ result_stopped }}/{{ total }}</span>
+  <a v-else-if="stopped > 0" :href="link" class="btn btn-secondary" target="_blank">
+    {{ result.name }} <span class="badge badge-light">{{ stopped }}/{{ total }}</span>
     <span class="sr-only">stopped jobs</span>
   </a>
-  <a v-else-if="result_waiting > 0" :href="result_link" class="btn btn-info" target="_blank">
-    {{ result.name }} <span class="badge badge-light">{{ result_waiting }}/{{ total }}</span>
+  <a v-else-if="waiting > 0" :href="link" class="btn btn-info" target="_blank">
+    {{ result.name }} <span class="badge badge-light">{{ waiting }}/{{ total }}</span>
     <span class="sr-only">stopped jobs</span>
   </a>
-  <a v-else-if="result_passed == total" :href="result_link" class="btn btn-success" target="_blank">
+  <a v-else-if="passed == total" :href="link" class="btn btn-success" target="_blank">
     {{ result.name }} <span class="badge badge-light">{{ total }}</span>
     <span class="sr-only">passed jobs</span>
   </a>
@@ -23,24 +23,24 @@ export default {
   name: 'ResultSummaryComponent',
   props: {result: {type: Object, required: true}},
   computed: {
-    result_link: function () {
+    link() {
       const searchParams = new URLSearchParams(this.result.linkinfo);
-      return this.$openqa_url + '?' + searchParams.toString();
+      return `${this.$openqaUrl}?${searchParams.toString()}`;
     },
-    result_stopped: function () {
+    stopped() {
       return this.result.stopped || 0;
     },
-    result_passed: function () {
+    passed() {
       return this.result.passed || 0;
     },
-    result_waiting: function () {
+    waiting() {
       return this.result.waiting || 0;
     },
-    result_failed: function () {
+    failed() {
       return this.result.failed || 0;
     },
-    total: function () {
-      return this.result_stopped + this.result_failed + this.result_waiting + this.result_passed;
+    total() {
+      return this.stopped + this.failed + this.waiting + this.passed;
     }
   }
 };

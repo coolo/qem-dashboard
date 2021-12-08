@@ -5,7 +5,7 @@
       <div class="text-left">
         <button type="button" class="btn btn-primary btn-sm" @click="triggerModal">
           <span class="badge badge-primary">
-            {{ incident_number }}
+            {{ incidentNumber }}
           </span>
           Incidents
         </button>
@@ -30,12 +30,12 @@ export default {
   components: {'result-summary': ResultSummaryComponent},
   props: {repo: {type: Object, required: true}, name: {type: String, required: true}},
   computed: {
-    incident_number: function () {
+    incidentNumber() {
       return this.repo.incidents.length;
     }
   },
   methods: {
-    triggerModal: function () {
+    triggerModal() {
       const dialog = this.$parent.$refs.incidentsDialog;
       dialog.title = this.name;
       dialog.incidents = this.repo.incidents;

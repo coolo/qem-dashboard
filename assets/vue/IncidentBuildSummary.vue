@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <div class="card-body text-left">
-      <h3 cass="card-title d-flex">Build {{ build }} ({{ number_of_passed }} passed)</h3>
-      <p v-for="group of interesting_groups" :key="group.build">
+      <h3 cass="card-title d-flex">Build {{ build }} ({{ NumberOfPassed }} passed)</h3>
+      <p v-for="group of interestingGroups" :key="group.build">
         <strong>
           Group <a :href="group.link">{{ group.build }}</a></strong
         >
@@ -19,17 +19,15 @@ export default {
   name: 'IncidentBuildSummaryComponent',
   props: {build: {type: String, required: true}, jobs: {type: Array, required: true}},
   computed: {
-    number_of_passed: function () {
-      return this.jobs.filter(function (job) {
-        return job.status == 'passed';
-      }).length;
+    NumberOfPassed() {
+      return this.jobs.filter(job => job.status === 'passed').length;
     },
-    interesting_groups: function () {
-      const groups = new Map();
-      const links = new Map();
+    interestingGroups() {
+      const groups = new Map(),
+        links = new Map();
       for (const job of this.jobs) {
-        if (job.status == 'passed') continue;
-        const key = job.job_group + '@' + job.flavor;
+        if (job.status === 'passed') continue;
+        const key = `${job.job_group}@${job.flavor}`;
         if (!groups.get(key)) {
           groups.set(key, new Map());
           links.set(key, {
@@ -42,14 +40,14 @@ export default {
         }
         groups.get(key).set(job.status, (groups.get(key).get(job.status) || 0) + 1);
       }
-      const ret = new Array();
-      for (let [build, stat] of groups) {
-        const summary = new Array();
+      const ret = [];
+      for (const [build, stat] of groups) {
+        const summary = [];
         for (const [key, value] of stat.entries()) {
-          summary.push(value + ' ' + key);
+          summary.push(`${value} ${key}`);
         }
         const searchParams = new URLSearchParams(links.get(build));
-        ret.push({build: build, link: this.$openqa_url + '?' + searchParams.toString(), summary: summary.sort()});
+        ret.push({build, link: `${this.$openqaUrl}?${searchParams.toString()}`, summary: summary.sort()});
       }
       return ret.sort((a, b) => a.build.localeCompare(b.build));
     }

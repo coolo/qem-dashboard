@@ -45,13 +45,13 @@ export default {
     groupFlavors: {type: Boolean, required: true}
   },
   computed: {
-    updateResultsGrouped: function () {
+    updateResultsGrouped() {
       if (!this.groupFlavors) return this.updateResults;
-      const results = new Object();
+      const results = {};
       for (const value of Object.values(this.updateResults)) {
-        const flavor = value.linkinfo.flavor;
-        const version = value.linkinfo.version;
-        const groupid = value.linkinfo.groupid;
+        const {flavor} = value.linkinfo;
+        const {version} = value.linkinfo;
+        const {groupid} = value.linkinfo;
         const newkey = `${groupid}:${version}`;
         if (!(newkey in results)) {
           results[newkey] = {name: value.name, passed: 0, failed: 0, stopped: 0, waiting: 0};

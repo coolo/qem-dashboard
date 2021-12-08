@@ -9,13 +9,13 @@
 
     <div class="incident-results" v-if="incident">
       <h2>Per incident results</h2>
-      <p v-if="!incident.build_nr">No incident build found</p>
-      <p v-else>{{ results }} - see details on <a :href="openqa_link">openqa</a></p>
+      <p v-if="!incident.buildNr">No incident build found</p>
+      <p v-else>{{ results }} - see details on <a :href="openqaLink">openqa</a></p>
     </div>
 
     <h2 class="mb-3 mt-3">Aggregate runs including this incident</h2>
     <div class="container">
-      <incident-build-summary v-for="build in sorted_builds" :key="build" :build="build" :jobs="jobs[build]" />
+      <incident-build-summary v-for="build in sortedBuilds" :key="build" :build="build" :jobs="jobs[build]" />
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ import axios from 'axios';
 
 export default {
   name: 'IncidentComponent',
-  data: function () {
+  data() {
     return {
       incident: null,
       summary: null,
@@ -36,25 +36,25 @@ export default {
   },
   components: {'smelt-link': SmeltLinkComponent, 'incident-build-summary': IncidentBuildSummaryComponent},
   computed: {
-    results: function () {
+    results() {
       let str = '';
       if (this.summary.passed) {
-        str = this.summary.passed + ' passed';
+        str = `${this.summary.passed} passed`;
       }
       for (const [key, value] of Object.entries(this.summary)) {
-        if (key == 'passed') continue;
+        if (key === 'passed') continue;
         if (str) {
           str += ', ';
         }
-        str += value + ' ' + key;
+        str += `${value} ${key}`;
       }
       return str;
     },
-    openqa_link: function () {
-      const searchParams = new URLSearchParams({build: this.incident.build_nr});
-      return this.$openqa_url + '?' + searchParams.toString();
+    openqaLink() {
+      const searchParams = new URLSearchParams({build: this.incident.buildNr});
+      return `${this.$openqaUrl}?${searchParams.toString()}`;
     },
-    sorted_builds: function () {
+    sortedBuilds() {
       return Object.keys(this.jobs).sort().reverse();
     }
   },
@@ -63,11 +63,13 @@ export default {
   },
   methods: {
     loadData() {
-      // the format is not necessary for mojo, but import for
-      // chromium to keep the caches apart
-      axios.get('/secret/api/incident/' + this.$route.params.id).then(response => {
+      /*
+       * The format is not necessary for mojo, but import for
+       * chromium to keep the caches apart
+       */
+      axios.get(`/secret/api/incident/${this.$route.params.id}`).then(response => {
         this.incident = response.data.incident;
-        this.incident.build_nr = response.data.build_nr;
+        this.incident.buildNr = response.data.build_nr;
         this.summary = response.data.incident_summary;
         this.jobs = response.data.jobs;
       });

@@ -8,7 +8,7 @@ import VueLoaderPlugin from 'vue-loader/lib/plugin.js';
 const assetsDir = process.env.WEBPACK_ASSETS_DIR || path.resolve(__dirname, 'assets');
 const isDev = process.env.NODE_ENV !== 'production';
 
-const output = new Object();
+const output = {};
 output.filename = isDev ? '[name].development.js' : '[name].[chunkhash].js';
 output.path = process.env.WEBPACK_OUT_DIR || path.resolve(__dirname, 'dist');
 output.publicPath = '';
@@ -54,9 +54,9 @@ rules.push({
 export default {
   entry: {'qem-dashboard': entry},
   mode: isDev ? 'development' : 'production',
-  module: {rules: rules},
-  optimization: {minimizer: minimizer},
-  output: output,
+  module: {rules},
+  optimization: {minimizer},
+  output,
   plugins: [
     new CopyWebpackPlugin({
       patterns: [{from: './node_modules/@fortawesome/fontawesome-free/webfonts', to: './webfonts'}]

@@ -30,8 +30,8 @@
             </li>
           </ul>
           <ul class="navbar-nav">
-            <li class="nav-item" v-if="$config_status">
-              <a class="nav-link" :href="$mojo_status_url" target="_blank">Status</a>
+            <li class="nav-item" v-if="$configStatus">
+              <a class="nav-link" :href="$mojoStatusUrl" target="_blank">Status</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="https://github.com/openSUSE/qem-dashboard/blob/main/API.md" target="_blank">
@@ -47,7 +47,7 @@
       <div class="row">
         <div class="col-md-12 title">
           <h2>{{ title }}</h2>
-          Last updated <span class="from-now">{{ last_updated }}</span>
+          Last updated <span class="from-now">{{ lastUpdated }}</span>
         </div>
       </div>
 
@@ -73,8 +73,8 @@
 <script>
 export default {
   name: 'App',
-  data: function () {
-    return {last_updated: 0};
+  data() {
+    return {lastUpdated: 0};
   },
   computed: {
     title() {

@@ -39,8 +39,8 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  if (from.name == 'repos') {
-    // make sure not to leave black screens
+  if (from.name === 'repos') {
+    // Make sure not to leave black screens
     jQuery('#update-incidents').modal('hide');
   }
   next();

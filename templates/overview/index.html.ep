@@ -10,14 +10,14 @@
 
     %= javascript begin
 
-      var global_openqa_url = "<%= $c->openqa_url->path('/tests/overview') %>";
-      var global_obs_url = "<%= $c->app->config->{obs}{url} %>";
-      var global_smelt_url = "<%= $c->app->config->{smelt}{url} %>";
+      var globalOpenqaUrl = "<%= $c->openqa_url->path('/tests/overview') %>";
+      var globalObsUrl = "<%= $c->app->config->{obs}{url} %>";
+      var globalSmeltUrl = "<%= $c->app->config->{smelt}{url} %>";
       % if (config 'status') {
-        var global_config_status = true;
-        var global_mojo_status_url = "<%= url_for 'mojo_status' %>";
+        var globalConfigStatus = true;
+        var globalMojoStatusUrl = "<%= url_for 'mojo_status' %>";
       % } else {
-        var global_config_status = false;
+        var globalConfigStatus = false;
       % }
     % end
   </head>

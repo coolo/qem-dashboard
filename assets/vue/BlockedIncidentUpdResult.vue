@@ -12,12 +12,11 @@ export default {
   components: {'result-summary': ResultSummaryComponent},
   props: {result: {type: Object, required: true}, groupId: {type: String, required: true}, groupFlavors: Boolean},
   computed: {
-    title: function () {
+    title() {
       if (this.groupFlavors) {
-        return 'Aggregate: ' + this.result.linkinfo.version;
-      } else {
-        return 'Aggregate: ' + this.result.linkinfo.flavor + '-' + this.result.linkinfo.version;
+        return `Aggregate: ${this.result.linkinfo.version}`;
       }
+      return `Aggregate: ${this.result.linkinfo.flavor}-${this.result.linkinfo.version}`;
     }
   }
 };

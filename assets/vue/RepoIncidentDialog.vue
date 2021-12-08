@@ -36,7 +36,7 @@ import IncidentLinkComponent from './IncidentLink.vue';
 export default {
   name: 'RepoIncidentDialogComponent',
   components: {'incident-link': IncidentLinkComponent},
-  data: function () {
+  data() {
     return {
       incidents: [],
       title: ''
