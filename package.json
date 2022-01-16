@@ -38,7 +38,7 @@
     "prettier": "^2.5.1",
     "sass": "^1.44.0",
     "sass-loader": "^12.3.0",
-    "tap": "^15.1.0",
+    "tap": "^15.1.6",
     "terser-webpack-plugin": "^5.2.5",
     "vue": "^3.2.26",
     "vue-loader": "^16.2.0",
